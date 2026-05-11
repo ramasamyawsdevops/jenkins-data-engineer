@@ -1,0 +1,35 @@
+sudo yum install python3 python3-pip -y
+
+python3 --version
+pip3 --version
+
+
+sudo yum install git docker -y
+
+
+sudo systemctl start docker
+sudo systemctl enable docker
+
+
+sudo usermod -aG docker jenkins
+sudo systemctl restart Jenkins
+
+
+
+mkdir data-engineer-project
+cd data-engineer-project
+
+
+
+data-engineer-project/
+│
+├── input/
+│   └── sales.csv
+│
+├── output/
+│
+├── etl.py
+├── validate.py
+├── requirements.txt
+├── Dockerfile
+└── Jenkinsfile

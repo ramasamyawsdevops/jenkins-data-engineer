@@ -1,0 +1,64 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Clone') {
+            steps {
+                echo 'https://github.com/ramasamyawsdevops/jenkins-data-engineer.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip3 install -r requirements.txt'
+            }
+        }
+
+        stage('Run ETL') {
+            steps {
+                sh 'python3 etl.py'
+            }
+        }
+
+        stage('Validate Data') {
+            steps {
+                sh 'python3 validate.py'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t data-engineer-project:v1 .'
+            }
+        }
+
+        stage('List Output Files') {
+            steps {
+                sh 'ls -lrth output/'
+            }
+        }
+
+        stage('Archive Files') {
+            steps {
+                archiveArtifacts artifacts: 'output/*.csv'
+            }
+        }
+    }
+
+    post {
+
+        success {
+            echo 'Pipeline Successful'
+        }
+
+        failure {
+            echo 'Pipeline Failed'
+        }
+
+        always {
+            echo 'Pipeline Finished'
+        }
+    }
+}
