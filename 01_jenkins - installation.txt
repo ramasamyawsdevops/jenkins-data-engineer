@@ -1,0 +1,28 @@
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/rpm-stable/jenkins.repo
+
+sudo yum upgrade
+
+# Add required dependencies for the jenkins package
+sudo yum install java-21-amazon-corretto -y
+
+sudo yum install jenkins -y
+
+sudo systemctl start jenkins
+
+sudo systemctl enable jenkins
+
+sudo systemctl status jenkins
+
+
+IP address:8080
+
+password : in server, sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+
+use this password.
+
+install suggested plugin
+
+
+
