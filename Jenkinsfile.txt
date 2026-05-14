@@ -47,7 +47,8 @@ pipeline {
 
                 dir('jenkins-data-engineer') {
 
-                    sh 'python3 etl.py'
+                    // sh 'python3 etl.py'
+                    sh 'python3 sales_data_etl.py'
 
                 }
             }
