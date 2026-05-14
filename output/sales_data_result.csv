@@ -1,0 +1,31 @@
+id,product,qty,price,total
+1,Laptop,2,50000,100000
+2,Mouse,5,500,2500
+3,Keyboard,3,1500,4500
+4,Monitor,2,12000,24000
+5,Printer,1,15000,15000
+6,Webcam,4,2500,10000
+7,Headphones,6,3000,18000
+8,SSD,3,7000,21000
+9,RAM,5,4500,22500
+10,Graphics Card,1,45000,45000
+11,USB Drive,10,800,8000
+12,Router,2,3500,7000
+13,Speaker,4,2200,8800
+14,Tablet,2,28000,56000
+15,Smartphone,3,35000,105000
+16,Charger,8,1200,9600
+17,Power Bank,5,1800,9000
+18,Microphone,2,6500,13000
+19,Smart Watch,4,9000,36000
+20,Projector,1,40000,40000
+21,Scanner,2,11000,22000
+22,Ethernet Cable,15,300,4500
+23,HDMI Cable,10,600,6000
+24,CPU Fan,6,900,5400
+25,Motherboard,2,14000,28000
+26,Cooling Pad,3,1700,5100
+27,External HDD,2,8500,17000
+28,WiFi Adapter,4,1300,5200
+29,Mechanical Keyboard,2,5500,11000
+30,Gaming Mouse,3,2500,7500
