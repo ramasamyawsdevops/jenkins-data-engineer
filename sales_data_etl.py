@@ -13,7 +13,7 @@ df["total"] = df["qty"] * df["price"]
 os.makedirs("output", exist_ok=True)
 
 # Save output
-df.to_csv("output/result.csv", index=False)
+df.to_csv("output/sales_data_result.csv", index=False)
 
 print(df)
 
