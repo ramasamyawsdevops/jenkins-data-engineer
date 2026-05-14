@@ -3,49 +3,101 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Clone') {
+          stage('Clean Workspace') {
             steps {
-                echo 'https://github.com/ramasamyawsdevops/jenkins-data-engineer.git'
+
+                deleteDir()
+
+            }
+        }
+
+        stage('GitClone') {
+            steps {
+
+             sh 'git clone https://github.com/ramasamyawsdevops/jenkins-data-engineer.git'
+
+            }
+        }
+
+        stage('Check Files') {
+            steps {
+
+                dir('jenkins-data-engineer') {
+
+                    sh 'pwd'
+                    sh 'ls -lrth'
+
+                }
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip3 install -r requirements.txt'
+
+                dir('jenkins-data-engineer') {
+
+                    sh 'pip3 install -r requirements.txt'
+
+                }
             }
         }
 
         stage('Run ETL') {
             steps {
-                sh 'python3 etl.py'
+
+                dir('jenkins-data-engineer') {
+
+                    sh 'python3 etl.py'
+
+                }
             }
         }
-
-        stage('Validate Data') {
+        
+        stage('Git Add') {
             steps {
-                sh 'python3 validate.py'
+                dir('jenkins-data-engineer') {
+
+                sh 'git add .'
+
             }
         }
-
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t data-engineer-project:v1 .'
-            }
         }
 
-        stage('List Output Files') {
+        stage('Git Commit') {
             steps {
-                sh 'ls -lrth output/'
+                dir('jenkins-data-engineer') {
+
+                sh 'git config --global user.email "ramasamyawsdevops@gmail.com"'
+                sh 'git config --global user.name "ramasamyawsdevops"'
+
+                sh 'git commit -m "Updated ETL output files" || true'
+
             }
         }
+        }
 
-        stage('Archive Files') {
+        stage('Git Push') {
             steps {
-                archiveArtifacts artifacts: 'output/*.csv'
+                
+                dir('jenkins-data-engineer'){
+
+                withCredentials([usernamePassword(
+                    credentialsId: 'github-creds',
+                    usernameVariable: 'GIT_USERNAME',
+                    passwordVariable: 'GIT_PASSWORD'
+                )]) {
+
+                    sh '''
+                    git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/ramasamyawsdevops/jenkins-data-engineer.git
+                    git push origin main
+                    '''
+
+                }
+              }
             }
         }
     }
+    
 
     post {
 
